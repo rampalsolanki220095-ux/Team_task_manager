@@ -8,14 +8,7 @@ dotenv.config();
 const app = require('./src/app');
 
 const PORT = process.env.PORT || 5000;
-const DEFAULT_MONGODB_URI = 'mongodb://127.0.0.1:27017/taskmanager';
-const mongoUri = process.env.MONGODB_URI && !process.env.MONGODB_URI.includes('your_username') && !process.env.MONGODB_URI.includes('your_password')
-  ? process.env.MONGODB_URI
-  : DEFAULT_MONGODB_URI;
-
-if (mongoUri === DEFAULT_MONGODB_URI && process.env.MONGODB_URI) {
-  console.warn('Using local MongoDB fallback because MONGODB_URI appears to be a placeholder.');
-}
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/taskmanager';
 
 mongoose.connect(mongoUri)
   .then(() => {
